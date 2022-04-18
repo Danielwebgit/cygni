@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Player;
 use Illuminate\Http\Request;
 
 class PlayerController extends Controller
@@ -14,7 +15,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        dd('xcdccd');
+        dd(Player::with('scores')->get());
     }
 
     /**

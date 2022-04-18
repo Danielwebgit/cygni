@@ -15,7 +15,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        dd(Game::all());    }
+        dd(Game::with('scores')->get());
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -62,4 +62,9 @@ class Player extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function scores(){
+        return $this->hasMany(Score::class, 'game_id', 'id');
+    }
+
 }

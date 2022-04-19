@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\ScoreRequest;
+use App\Services\Score\ScoreService;
+use App\Repositories\Player\PlayerRepository;
+use Illuminate\Support\Facades\DB;
 
 class ScoreController extends Controller
 {
+    public function __construct(
+        private PlayerRepository $accountRepository
+    ){}
     /**
      * Display a listing of the resource.
      *
@@ -14,51 +20,32 @@ class ScoreController extends Controller
      */
     public function index()
     {
-        //
+        $ranks = DB::select(
+            "SELECT *, dense_rank() OVER (order by score desc) AS posicao FROM scores"
+        );
+
+        return json_encode($ranks);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(
+        ScoreRequest $request,
+        ScoreService $ScoreServices
+    )
     {
-        //
-    }
+        $storeScore = $ScoreServices->createScore(
+            $request->validated()
+        );
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $player = $this->accountRepository->getPlayer($storeScore->player_id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if (! $storeScore)
+        {
+            return response()->json([
+                'data' => []
+            ], 404);
+        }
+        return response()->json([
+            'data' => ["Score Cadastrado! para o $player->name"]
+        ]);
     }
 }

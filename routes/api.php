@@ -25,10 +25,11 @@ use App\Http\Controllers\Api\{
 //     return $request->user();
 // });
 
-
-    Route::post('auth/login', [AuthController::class,'login']);
-    Route::post('auth/register', [AuthController::class,'register']);
-
+/** Rota para login e registro */
+Route::prefix('auth')->group(function (){
+Route::post('/login', [AuthController::class,'login']);
+Route::post('/cadastrar', [AuthController::class,'register']);
+});
 
 /** Rota do grupo de jogadores v1 */
 Route::prefix('jogadores')->group(function (){
@@ -36,7 +37,7 @@ Route::prefix('jogadores')->group(function (){
     Route::get('/', [PlayerController::class, 'index'])
     ->name('player.index');
 
-    Route::post('/cadastrar-jogador', [PlayerController::class, 'store'])
+    Route::post('/cadastrar', [PlayerController::class, 'store'])
     ->name('player.store');
 });
 
@@ -51,7 +52,7 @@ Route::prefix('jogos')->group(function (){
 });
 
 /** Rota do grupo de scores v1 */
-Route::prefix('scores')->group(function (){
+Route::prefix('rank')->group(function (){
 
     Route::get('/', [ScoreController::class, 'index'])
     ->name('player-score.index');
@@ -59,3 +60,11 @@ Route::prefix('scores')->group(function (){
     Route::post('/jogador/{player}', [ScoreController::class, 'store'])
     ->name('player-score.store');
 });
+
+Route::group(['middleware' => ['apiJwt',]], function () {
+
+    Route::post('/novo-score', [ScoreController::class, 'store'])
+    ->name('player-score.store');
+});
+
+

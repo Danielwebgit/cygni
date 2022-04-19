@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PlayerRequest;
 
 class AuthController extends Controller
 {
@@ -22,17 +23,18 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register(Request $request): JsonResponse
+
+    public function register(PlayerRequest $request): JsonResponse
     {
         $user = Player::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
+            'name' => $request->validated()['name'],
+            'surname' => $request->validated()['surname'],
+            'email' => $request->validated()['email'],
             'password' => Hash::make($request->password)
         ]);
 
         return response()->json([
-            'message' => 'User successfully registered',
+            'message' => 'Cadastro realizado com sucesso!',
             'user' => $user
         ], 201);
     }

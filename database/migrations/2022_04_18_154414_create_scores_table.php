@@ -14,12 +14,12 @@ class CreateScoresTable extends Migration
     public function up()
     {
         Schema::create('scores', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('score',100);
-            $table->integer('game_id')->unsigned();
-            $table->foreign('game_id')->references('id')->on('games');
-            $table->integer('player_id')->unsigned();
             $table->foreign('player_id')->references('id')->on('players');
+            $table->integer('player_id')->unsigned();
+
+            $table->foreign('game_id')->references('id')->on('games');
+            $table->integer('game_id')->unsigned();
+            $table->integer('score', 100);
             $table->timestamps();
         });
     }

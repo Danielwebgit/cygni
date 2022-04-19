@@ -17,11 +17,10 @@ class PlayerFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'surname' => $this->faker->name(),
-            'email' => $this->faker->email(),
+            'email' => $this->faker->unique()->safeEmail,
             'password' => '$2y$10$sj4hDtuxjg86Pb6o14iV1.N5YLWh.7/4M5bBcAgNO1X5P7Uip.zRS',
             'created_at' =>  new DateTime(),
             'updated_at' => new DateTime(),
         ];
-
     }
 }

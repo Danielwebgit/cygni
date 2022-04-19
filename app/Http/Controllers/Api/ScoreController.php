@@ -6,25 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ScoreRequest;
 use App\Services\Score\ScoreService;
 use App\Repositories\Player\PlayerRepository;
+use App\Repositories\Score\ScoreRepository;
 use Illuminate\Support\Facades\DB;
 
 class ScoreController extends Controller
 {
+    private $playerRepository;
+
     public function __construct(
-        private PlayerRepository $accountRepository
-    ){}
+        PlayerRepository $playerRepository
+    ){
+        $this->playerRepository = $playerRepository;
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $ranks = DB::select(
-            "SELECT *, dense_rank() OVER (order by score desc) AS posicao FROM scores"
-        );
-
-        return json_encode($ranks);
+        $rank = $this->playerRepository->getRank();
+        return response()->json([
+            'data' => [$rank]
+        ]);
     }
 
     public function store(
@@ -36,7 +39,7 @@ class ScoreController extends Controller
             $request->validated()
         );
 
-        $player = $this->accountRepository->getPlayer($storeScore->player_id);
+        $player = $this->playerRepository->findPlayer($storeScore->player_id);
 
         if (! $storeScore)
         {

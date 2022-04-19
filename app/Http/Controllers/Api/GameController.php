@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use Illuminate\Http\JsonResponse;
 
 class GameController extends Controller
 {
     /**
      * Lista todos os jogos.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $games = Game::with('scores')->get();
 

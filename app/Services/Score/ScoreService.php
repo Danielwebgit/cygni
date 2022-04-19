@@ -3,6 +3,7 @@
 namespace App\Services\Score;
 
 use App\Models\Score;
+use Illuminate\Support\Facades\Auth;
 
 class ScoreService
 {
@@ -14,7 +15,7 @@ class ScoreService
     {
         return $this->model::query()->create([
             'game_id' => $scoreData['game_id'],
-            'player_id' => auth()->id(),
+            'player_id' => Auth::user()->id,
             'score' => $scoreData['new_score']
         ]);
     }

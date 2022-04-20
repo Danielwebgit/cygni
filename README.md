@@ -49,6 +49,7 @@ Adicione um body do tipo json
 {
     "name": "cygni",
     "surname": "cygni123",
+    "score": 23,
     "email": "cygni@gmail.com",
     "password": "123456"
 }

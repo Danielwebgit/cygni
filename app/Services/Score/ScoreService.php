@@ -15,8 +15,8 @@ class ScoreService
     {
         return $this->model::query()->create([
             'game_id' => $scoreData['game_id'],
-            'player_id' => Auth::user()->id,
-            'score' => $scoreData['new_score']
+            'player_id' => $scoreData['player_id'] ?? Auth::user()->id,
+            'score' => $scoreData['score']
         ]);
     }
 }

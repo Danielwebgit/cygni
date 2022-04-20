@@ -26,6 +26,7 @@ class PlayerRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:15'],
             'surname' => ['required', 'string', 'max:10'],
+            'score' => ['required', 'integer', 'max:100'],
             'email' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];

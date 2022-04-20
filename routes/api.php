@@ -28,7 +28,7 @@ use App\Http\Controllers\Api\{
 /** Rota para login e registro */
 Route::prefix('auth')->group(function (){
 Route::post('/login', [AuthController::class,'login']);
-Route::post('/cadastrar', [AuthController::class,'register']);
+Route::post('/cadastrar', [AuthController::class,'registerPlayer']);
 });
 
 /** Rota do grupo de jogadores v1 */

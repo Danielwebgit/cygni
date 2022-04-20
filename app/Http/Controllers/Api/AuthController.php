@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Player;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\PlayerRequest;
+use App\Services\Score\ScoreService;
+use App\Services\Player\PlayerService;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
+
+    public function __construct(
+        private ScoreService $ScoreService,
+        private PlayerService $playerService
+    ){}
 
     public function login(Request $request): JsonResponse
     {
@@ -24,18 +30,35 @@ class AuthController extends Controller
     }
 
 
-    public function register(PlayerRequest $request): JsonResponse
+    public function registerPlayer(PlayerRequest $request): JsonResponse
     {
-        $user = Player::create([
-            'name' => $request->validated()['name'],
-            'surname' => $request->validated()['surname'],
-            'email' => $request->validated()['email'],
-            'password' => Hash::make($request->password)
-        ]);
+        DB::beginTransaction();
+
+        $player = $this->playerService->createPlayer(
+            $request->validated()
+        );
+
+        $playerData = [
+            'player_id' => $player->id,
+            'game_id' => 1,
+            'score' => $request->validated()['score']
+        ];
+
+        $score = $this->ScoreService->createScore(
+            $playerData
+        );
+
+        if($player || $score){
+            DB::rollBack();
+            logs()->critical('Erro ao criar jogador ou score, verificar serviços!', [
+                'player' => $player->name
+            ]);
+            return null;
+        }
 
         return response()->json([
             'message' => 'Cadastro realizado com sucesso!',
-            'user' => $user
+            'user' => $player->name
         ], 201);
     }
 

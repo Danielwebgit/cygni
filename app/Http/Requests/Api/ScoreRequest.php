@@ -27,14 +27,14 @@ class ScoreRequest extends FormRequest
     {
         return [
             'game_id' => ['required', 'integer'],
-            'new_score' => ['required', 'integer', 'max:100'],
+            'score' => ['required', 'integer', 'max:100'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'new_score.max' => 'O campos score deve ser menor que 100.',
+            'score.max' => 'O campos score deve ser menor que 100.',
         ];
     }
 }

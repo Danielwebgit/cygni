@@ -13,7 +13,7 @@ class PlayerService
 
     public function createPlayer(array $playerData)
     {
-        return Player::create([
+        return $this->model->query()->create([
             'name' => $playerData['name'],
             'surname' => $playerData['surname'],
             'email' => $playerData['email'],

@@ -30,10 +30,8 @@ class AuthController extends Controller
     }
 
 
-    public function registerPlayer(PlayerRequest $request): JsonResponse
+    public function registerPlayer(PlayerRequest $request): null|JsonResponse
     {
-        DB::beginTransaction();
-
         $player = $this->playerService->createPlayer(
             $request->validated()
         );
@@ -48,7 +46,7 @@ class AuthController extends Controller
             $playerData
         );
 
-        if($player || $score){
+        if(!$player || !$score){
             DB::rollBack();
             logs()->critical('Erro ao criar jogador ou score, verificar serviços!', [
                 'player' => $player->name

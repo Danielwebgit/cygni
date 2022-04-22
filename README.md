@@ -28,13 +28,96 @@ Não se esqueça de configurar os headers e incluir o Bearer Token no client de 
 
 https://localhost/cygni-1/public/api/jogadores
 
+### json demonstrativo
+
+```json
+{
+  "data": [
+    [
+      {
+        "jogador": "Krista Wolf",
+        "score": 69,
+        "posicao": 1
+      },
+      {
+        "jogador": "Lelia Volkman",
+        "score": 60,
+        "posicao": 2
+      }
+    ]
+  ]
+}
+```
+
 > Listar jogos
 
 https://localhost/cygni-1/public/api/jogos
 
+### json demonstrativo
+
+```json
+{
+  "message": "Jogos e seus Scores",
+  "user": [
+    {
+      "id": 1,
+      "name": "Ping Pong",
+      "description": "Temporibus autem sed repellat dolores consvoluptatem voluptas.",
+      "category": "Tênis de mesa",
+      "created_at": "2022-04-22T00:15:56.000000Z",
+      "updated_at": "2022-04-22T00:15:56.000000Z",
+      "scores": [
+        {
+          "player_id": 9,
+          "game_id": 1,
+          "score": 41,
+          "created_at": "2022-04-22T00:15:56.000000Z",
+          "updated_at": "2022-04-22T00:15:56.000000Z"
+        },
+        {
+          "player_id": 6,
+          "game_id": 1,
+          "score": 45,
+          "created_at": "2022-04-22T00:15:56.000000Z",
+          "updated_at": "2022-04-22T00:15:56.000000Z"
+        },
+        {
+          "player_id": 10,
+          "game_id": 1,
+          "score": 50,
+          "created_at": "2022-04-22T00:15:56.000000Z",
+          "updated_at": "2022-04-22T00:15:56.000000Z"
+        }
+      ]
+    }
+  ]
+}
+```
+
 > Listar Rank
 
 https://localhost/cygni-1/public/api/rank
+
+### json demonstrativo
+
+```json
+{
+  "data": [
+    [
+      {
+        "jogador": "Krista Wolf",
+        "score": 80,
+        "posicao": 1
+      },
+      {
+        "jogador": "Lelia Volkman",
+        "score": 79,
+        "posicao": 2
+      }
+    ]
+  ]
+}
+```
 
 **Rotas POST**
 

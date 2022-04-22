@@ -1,6 +1,5 @@
-<p style="text-align: center">
-    <img src="https://lojahub.com.br/favicon.p" width="200" height="200" alt="Cygni">
-</p>
+![Screenshot: Running tests on  vscode](docs/img/cygni.png)
+
 # Api de resultado dos jogos | Cygni Agrociência.
 
 O objetivo é mostrar os scores dos jogadores com rank das partidas, foram criados alguns dados fakes para melhor iteração e entendimento.
@@ -47,11 +46,11 @@ Adicione um body do tipo json
 
 ```json
 {
-    "name": "cygni",
-    "surname": "cygni123",
-    "score": 23,
-    "email": "cygni@gmail.com",
-    "password": "123456"
+  "name": "cygni",
+  "surname": "cygni123",
+  "score": 23,
+  "email": "cygni@gmail.com",
+  "password": "123456"
 }
 ```
 
@@ -59,8 +58,8 @@ Adicione um body do tipo json
 
 ```json
 {
-    "game_id": 1,
-    "new_score": 80
+  "game_id": 1,
+  "new_score": 80
 }
 ```
 
@@ -68,7 +67,7 @@ Adicione um body do tipo json
 
 ```json
 {
-    "email": "cygni@gmail.com",
-    "password": "123456"
+  "email": "cygni@gmail.com",
+  "password": "123456"
 }
 ```
